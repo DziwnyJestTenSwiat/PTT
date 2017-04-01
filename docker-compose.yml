@@ -1,0 +1,23 @@
+app:
+  build: docker/app
+  links:
+    - elasticsearch
+    - postgres
+  volumes:
+    - .:/app
+  ports:
+    - 8000:8000
+
+elasticsearch:
+  build: docker/elasticsearch
+  container_name: ptt-elasticsearch
+  ports:
+    - 9200:9200
+
+postgres:
+  image: postgres:9.5
+  container_name: ptt-postgres
+  environment:
+    - POSTGRES_USER=root
+    - POSTGRES_PASSWORD=root
+    - POSTGRES_DB=ptt
